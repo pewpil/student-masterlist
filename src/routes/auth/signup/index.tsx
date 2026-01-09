@@ -1,8 +1,8 @@
-import style from "$/auth/login/index.module.css";
+import style from "$/auth/signup/index.module.css";
 import { CircleUser } from "lucide-solid";
 export default function Page() {
   return (
-    <form action="" id={style.login}>
+    <form action="" id={style.signup}>
       <div id={style.title}>
         <CircleUser />
         <h1>Sign Up</h1>
