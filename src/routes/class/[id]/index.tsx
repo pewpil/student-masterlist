@@ -1,9 +1,9 @@
 import { useParams } from "@solidjs/router";
+
+
 export default function Page() {
-  const params = useParams();
+  const {id} = useParams();
   return (
-    <div>
-      <p>hello from home/{params.id}</p>
-    </div>
+    <p>class with id: {id}</p>
   );
 }
