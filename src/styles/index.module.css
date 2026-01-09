@@ -1,0 +1,26 @@
+div#account {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  > A {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+
+    > button {
+      background-color: var(--button-default-bg-color);
+      cursor: pointer;
+      color: #ffffff;
+      width: 100%;
+      padding: calc(var(--padding-unit) * 1.5);
+      margin-bottom: calc(var(--margin-unit) * 2);
+      border-radius: calc(var(--border-radius-unit) * 2);
+    }
+  }
+}

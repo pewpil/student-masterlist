@@ -4,11 +4,16 @@
   padding: 0px;
 }
 
-/* body { */
-/*   /* font-family: */ */
-/*   /*   Gordita, Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", */ */
-/*   /*   sans-serif; */ */
-/* } */
+body {
+  --button-default-bg-color: #007aff;
+  --button-default-text-color: #ffffff;
+  --margin-unit: 0.5rem;
+  --padding-unit: 0.5rem;
+  --border-radius-unit: 0.25rem;
+  /* font-family: */
+  /*   Gordita, Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", */
+  /*   sans-serif; */
+}
 
 /* a { */
 /*   margin-right: 1rem; */
