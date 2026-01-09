@@ -1,11 +1,14 @@
-body {
-  /* font-family: */
-  /*   Gordita, Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", */
-  /*   sans-serif; */
+* {
   margin: 0px;
   border: 0px;
   padding: 0px;
 }
+
+/* body { */
+/*   /* font-family: */ */
+/*   /*   Gordita, Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", */ */
+/*   /*   sans-serif; */ */
+/* } */
 
 /* a { */
 /*   margin-right: 1rem; */
