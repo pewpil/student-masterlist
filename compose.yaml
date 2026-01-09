@@ -1,0 +1,20 @@
+services:
+  database:
+    image: postgres:16
+    container_name: student-attendance-db
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - app
+    volumes:
+      - db-attendance-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+networks:
+  app:
+
+volumes:
+  db-attendance-data:
