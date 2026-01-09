@@ -7,7 +7,7 @@ div#account {
   flex-direction: column;
 
   > A {
-    width: 20%;
+    width: calc(342 / 412 * 100%);
     display: flex;
     align-items: center;
     justify-content: center;
