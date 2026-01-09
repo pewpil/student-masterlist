@@ -1,5 +1,15 @@
+import style from "$/auth/login/index.module.css";
+import { ArrowRight } from "lucide-solid";
 export default function Page() {
   return (
-    <p>login page</p>
+    <form action="" id={style.login}>
+      <div id={style.title}>
+        <ArrowRight />
+        <h1>Log in</h1>
+      </div>
+      <input type="text" name="username" placeholder="Username" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button type="submit">Log in</button>
+    </form>
   );
 }
