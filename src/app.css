@@ -11,6 +11,8 @@ body {
   --button-default-text-color: #ffffff;
   --margin-unit: 0.5rem;
   --padding-unit: 0.5rem;
+  --default-font-size: 0.5rem;
   --border-radius-unit: 0.25rem;
+  --length-unit: 0.5rem;
   --default-font-family: "Roboto", sans-serif;
 }

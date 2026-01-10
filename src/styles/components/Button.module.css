@@ -3,8 +3,10 @@ button#default {
   cursor: pointer;
   color: #ffffff;
   width: 100%;
-  padding: calc(var(--padding-unit) * 1.5);
+  padding: calc(var(--padding-unit) * 2.5);
   margin-bottom: calc(var(--margin-unit) * 2);
   border-radius: calc(var(--border-radius-unit) * 2);
   font-family: var(--default-font-family);
+  font-size: calc(var(--default-font-size) * 3);
+  font-weight: 300;
 }
