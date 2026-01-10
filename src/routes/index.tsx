@@ -1,14 +1,15 @@
-import style from "$/index.module.css";
+import style from "$/routes/index.module.css";
 import { A } from "@solidjs/router";
+import Button from "~/components/Button";
 
 export default function Page() {
   return (
     <div id={style.account}>
       <A href="/auth/signup">
-        <button>Sign Up</button>
+        <Button>Sign Up</Button>
       </A>
       <A href="/auth/login">
-        <button>Log in</button>
+        <Button>Log In</Button>
       </A>
     </div>
   );

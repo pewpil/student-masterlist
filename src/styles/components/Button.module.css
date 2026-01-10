@@ -1,0 +1,10 @@
+button#default {
+  background-color: var(--button-default-bg-color);
+  cursor: pointer;
+  color: #ffffff;
+  width: 100%;
+  padding: calc(var(--padding-unit) * 1.5);
+  margin-bottom: calc(var(--margin-unit) * 2);
+  border-radius: calc(var(--border-radius-unit) * 2);
+  font-family: var(--default-font-family);
+}

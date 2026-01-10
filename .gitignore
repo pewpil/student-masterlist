@@ -30,5 +30,8 @@ Thumbs.db
 # copyright
 /public/fonts
 
+#test
+/src/routes/render
+
 .gemini/
 GEMINI.md

@@ -1,0 +1,16 @@
+form#login {
+  background-color: green;
+
+  > div {
+    display: flex;
+    align-items: center;
+
+    > h1 {
+      font-family: var(--default-font-family);
+    }
+  }
+
+  > input {
+    display: block;
+  }
+}

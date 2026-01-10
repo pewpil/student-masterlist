@@ -1,5 +1,6 @@
-import style from "$/auth/login/index.module.css";
+import style from "$/routes/auth/login/index.module.css";
 import { ArrowRight } from "lucide-solid";
+import Button from "~/components/Button";
 export default function Page() {
   return (
     <form action="" id={style.login}>
@@ -9,7 +10,7 @@ export default function Page() {
       </div>
       <input type="text" name="username" placeholder="Username" required />
       <input type="password" name="password" placeholder="Password" required />
-      <button type="submit">Log In</button>
+      <Button>Log In</Button>
     </form>
   );
 }

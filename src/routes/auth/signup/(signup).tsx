@@ -1,4 +1,4 @@
-import style from "$/auth/signup/index.module.css";
+import style from "$/routes/auth/signup/index.module.css";
 import { CircleUser } from "lucide-solid";
 export default function Page() {
   return (
