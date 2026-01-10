@@ -1,3 +1,28 @@
 form#signup {
-  background-color: pink;
+  padding: calc(var(--padding-unit) * 4);
+  padding-top: calc(var(--padding-unit) * 16);
+
+  > div {
+    &:first-of-type {
+      display: flex;
+      align-items: center;
+    }
+
+    &:last-of-type {
+      padding-bottom: calc(var(--padding-unit) * 4);
+    }
+
+    > h1 {
+      font-family: var(--default-font-family);
+      font-weight: 300;
+      font-size: calc(var(--default-font-size) * 5);
+    }
+
+    > #icon {
+      width: calc(var(--length-unit) * 7);
+      height: calc(var(--length-unit) * 7);
+      stroke-width: 1px;
+      margin-right: calc(var(--length-unit) * 1);
+    }
+  }
 }

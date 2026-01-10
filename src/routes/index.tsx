@@ -5,10 +5,10 @@ import Button from "~/components/Button";
 export default function Page() {
   return (
     <div id={style.account}>
-      <A href="/auth/signup">
+      <A href="/signup">
         <Button>Sign Up</Button>
       </A>
-      <A href="/auth/login">
+      <A href="login">
         <Button>Log In</Button>
       </A>
     </div>
