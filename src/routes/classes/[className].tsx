@@ -11,6 +11,7 @@ export default function Page() {
 
   return (
     <div id={style.class}>
+      {/* Jude pa help ko ani Argument of type 'string | undefined' is not assignable to parameter of type 'string' daw ang className */}
       <h1>{decodeURIComponent(className)}</h1>
       <p>{getOwner()}</p>
       <h2>Students</h2>
