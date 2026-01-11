@@ -1,6 +1,6 @@
 form#signup {
   padding: calc(var(--padding-unit) * 4);
-  padding-top: calc(var(--padding-unit) * 16);
+  padding-top: calc(var(--padding-unit) * 32);
 
   > div {
     &:first-of-type {

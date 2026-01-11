@@ -1,5 +1,5 @@
 import { ArrowRightIcon } from "lucide-solid";
-import style from "$/routes/class/join-class.module.css";
+import style from "$/routes/classes/join-class.module.css";
 
 export default function Page() {
   return (

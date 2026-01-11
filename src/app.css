@@ -9,6 +9,8 @@
 body {
   --button-default-bg-color: #007aff;
   --button-default-text-color: #ffffff;
+  --button-default-negative: #ff383c;
+  --button-class-student: #f0f0f0;
   --margin-unit: 0.5rem;
   --padding-unit: 0.5rem;
   --default-font-size: 0.5rem;

@@ -6,6 +6,7 @@ export default defineConfig({
     resolve: {
       alias: {
         $: resolve("./src/styles"),
+        "%": resolve("./src/data-access"),
       },
     },
   },

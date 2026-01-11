@@ -1,7 +1,9 @@
 import style from "$/routes/auth/login/(login).module.css";
+import { A } from "@solidjs/router";
 import { ArrowRight } from "lucide-solid";
 import Button from "~/components/Button";
 import Input from "~/components/Input";
+
 export default function Page() {
   return (
     <form action="" id={style.login}>
@@ -18,7 +20,9 @@ export default function Page() {
           required
         />
       </div>
-      <Button>Log In</Button>
+      <A href="/classes">
+        <Button>Log In</Button>
+      </A>
     </form>
   );
 }
