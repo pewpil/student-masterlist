@@ -1,6 +1,7 @@
-import { ArrowRightIcon } from "lucide-solid"
+import { ArrowRightIcon } from "lucide-solid";
+import style from "$/routes/class/join-class.module.css";
 
-const joinClass = () => {
+export default function Page() {
   return (
     <form class="">
       <ArrowRightIcon />
@@ -9,7 +10,5 @@ const joinClass = () => {
       <input type="text" placeholder="Name" required />
       <button type="submit">Join</button>
     </form>
-  )
+  );
 }
-
-export default joinClass
