@@ -1,6 +1,6 @@
 div#classes {
   padding: calc(var(--padding-unit) * 4);
-  padding-top: calc(var(--padding-unit) * 32);
+  padding-top: calc(var(--padding-unit) * 12);
 
   > h1 {
     font-family: var(--default-font-family);
@@ -10,6 +10,13 @@ div#classes {
   }
 
   > div {
+    &:first-of-type {
+      margin-bottom: calc(var(--margin-unit) * 32);
+      display: flex;
+      flex-direction: column;
+      gap: calc(var(--margin-unit) * 1);
+    }
+
     &:last-of-type {
       display: flex;
       gap: calc(var(--margin-unit) * 1);
