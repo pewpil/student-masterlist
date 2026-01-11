@@ -2,17 +2,20 @@ import { useParams } from "@solidjs/router";
 import { For } from "solid-js";
 import Button from "~/components/Button";
 import Student from "~/components/classes/Student";
+import style from "$/routes/classes/[className].module.css";
+import getOwner from "%/classes/(classes)/getOwner";
+import getStudents from "%/classes/(classes)/getStudents";
 
 export default function Page() {
   const { className } = useParams();
 
   return (
-    <div>
+    <div id={style.class}>
       <h1>{decodeURIComponent(className)}</h1>
-      <p>Owner Name</p>
+      <p>{getOwner()}</p>
       <h2>Students</h2>
       <div>
-        <For each={["Student 1", "Student 2", "Student 3"]}>
+        <For each={getStudents()}>
           {(student) => <Student>{student}</Student>}
         </For>
       </div>

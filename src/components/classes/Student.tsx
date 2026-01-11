@@ -8,7 +8,7 @@ interface Props {
 
 export default function Student(props: Props) {
   return (
-    <A href="#">
+    <A id={style.student} href="#">
       <Button type="student">{props.children}</Button>
     </A>
   );
