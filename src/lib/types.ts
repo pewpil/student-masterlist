@@ -6,6 +6,7 @@ export interface User {
 
 export interface Classroom { 
   id?: number;
+  owner_id?: number;
   name: string;
   password?: string;
 }

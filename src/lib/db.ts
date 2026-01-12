@@ -28,8 +28,10 @@ export async function migrateUp() {
   await client.query(`
     CREATE TABLE IF NOT EXISTS classes (
     id SERIAL PRIMARY KEY,
+    owner_id SERIAL,
     name VARCHAR(100) NOT NULL,
     password VARCHAR(255)
+    FOREIGN KEY (owner_id) REFERENCES users (id)
     );
   `);
 
@@ -45,14 +47,14 @@ export async function migrateUp() {
     );
   `);
 
-  console.log("classes table up");
+  console.log("enrollments table up");
 
 }
 
 export async function migrateDown() {
   await client.query(`
-DROP TABLE IF EXISTS users, classes, enrollments;
-`);
+    DROP TABLE IF EXISTS users, classes, enrollments;
+  `);
   console.log("users, classes, enrollments down");
 }
 
@@ -106,7 +108,7 @@ export async function createUser(user: User): Promise<User> {
     text: `
       INSERT INTO users(name, password)
       VALUES ($1, $2)
-      RETURNING *
+      RETURNING *;
     `,
     values: [user.name, user.password],
     
@@ -165,11 +167,11 @@ export async function createClass(classroom: Classroom): Promise<Classroom> {
   const query = {
     name: "create-class",
     text: `
-      INSERT INTO class(name, password)
+      INSERT INTO class(owner_id, name, password)
       VALUES ($1, $2)
       RETURNING *
     `,
-    values: [classroom.name, classroom.password],
+    values: [classroom.owner_id, classroom.name, classroom.password],
     
   }
 
@@ -200,7 +202,7 @@ export async function createEnrollment(user: User, classroom: Classroom): Promis
     name: "create-enrollment",
     text: `
       INSERT INTO enrollments (user_id, class_id) 
-      VALUES ($1, $2);
+      VALUES ($1, $2)
       RETURNING id;
     `,
     values: [user.id, classroom.id]
@@ -209,16 +211,46 @@ export async function createEnrollment(user: User, classroom: Classroom): Promis
   await client.query(query);
 
 }
+export async function getClassesFromOwnerId(id: number): Promise<Classroom[]> {
+  const query = {
+    name: "get-classes-from-owner-id",
+    text: `
+      FROM classes
+      SELECT *
+      WHERE owner_id = $1;
+    `,
+    values: [id],
+  };
+  const res = await client.query(query);
+  return res.rows;
 
+}
 export async function getClassesFromUserId(id: number): Promise<Classroom[]> {
   const query = {
     name: "get-classes-from-user-id",
     text: `
       FROM enrollments
-      SELECT classes.id classes.name classes.password;
+      SELECT classes.id, classes.name, classes.password
       INNER JOIN users ON enrollments.user_id = users.id
       INNER JOIN classes ON enrollments.class_id = classes.id
       WHERE users.id = $1;
+    `,
+    values: [id],
+  };
+  const res = await client.query(query);
+  return res.rows;
+
+}
+
+export async function getUsersfromClassId(id: number): Promise<User[]> {
+  const query = {
+    name: "get-users-from-class-id",
+    text: `
+      FROM enrollments
+      SELECT users.id, users.name, users.password
+      INNER JOIN users ON enrollments.user_id = users.id
+      INNER JOIN classes ON enrollments.class_id = classes.id
+      WHERE classes.id = $1;
     `,
     values: [id],
   };
