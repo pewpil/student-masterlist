@@ -3,7 +3,7 @@ import dotenv from "dotenv"
 import { useSession } from "vinxi/http";
 import { User } from "./types";
 import { createUser, getUsers } from "./db";
-import bcrypt from "bcrypt"
+import * as bcrypt from "bcrypt"
 
 export type SessionData = {
   user_id?: number;
@@ -16,7 +16,8 @@ export const sessionConfig = {
 export async function register(user: User) {
   "use server"
   //passwords on the database layer are transformed into hashes
-  const hashed_password = await bcrypt.hash(user.password, process.env.HASH_SALT || "salty")
+  
+  const hashed_password = await bcrypt.hash(user.password, Number(process.env.HASH_SALT_ROUNDS) || 10)
   await createUser({...user, password: hashed_password});
 }
 

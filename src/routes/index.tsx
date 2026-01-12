@@ -8,7 +8,7 @@ export default function Page() {
       <A href="/signup">
         <Button>Sign Up</Button>
       </A>
-      <A href="login">
+      <A href="/login">
         <Button>Log In</Button>
       </A>
     </div>
