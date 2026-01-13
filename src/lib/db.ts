@@ -2,20 +2,19 @@
 "use server"
 
 import dotenv from "dotenv"
-import { Client } from "pg"
+import { Client, Pool } from "pg"
 import { Classroom, User } from "./types";
 
-const client = new Client({
+const pool = new Pool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   connectionString: process.env.DB_SRC,
   database: process.env.DB_NAME,
 });
-await client.connect();
 
 export async function migrateUp() {
 
-  await client.query(`
+  await pool.query(`
     CREATE TABLE IF NOT EXISTS users (
       id SERIAL PRIMARY KEY,
       name VARCHAR(100) NOT NULL,
@@ -25,7 +24,7 @@ export async function migrateUp() {
 
   console.log("user table up");
 
-  await client.query(`
+  await pool.query(`
     CREATE TABLE IF NOT EXISTS classes (
     id SERIAL PRIMARY KEY,
     owner_id SERIAL,
@@ -37,7 +36,7 @@ export async function migrateUp() {
 
   console.log("classes table up");
 
-  await client.query(`
+  await pool.query(`
     CREATE TABLE IF NOT EXISTS enrollments (
     id SERIAL PRIMARY KEY,
     user_id SERIAL,
@@ -52,7 +51,7 @@ export async function migrateUp() {
 }
 
 export async function migrateDown() {
-  await client.query(`
+  await pool.query(`
     DROP TABLE IF EXISTS users, classes, enrollments;
   `);
   console.log("users, classes, enrollments down");
@@ -64,12 +63,12 @@ export async function getUsers(): Promise<User[]> {
   const query = {
     name: "get-users",
     text: `
+      SELECT *
       FROM users
-      SELECT *;
     `,
     values: [],
   };
-  const res = await client.query(query);
+  const res = await pool.query(query);
   return res.rows;
 
 }
@@ -83,7 +82,7 @@ export async function getUserFromId(id: number): Promise<User> {
     `,
     values: [id],
   };
-  const res = await client.query(query);
+  const res = await pool.query(query);
   return res.rows[0];
 }
 
@@ -114,7 +113,7 @@ export async function createUser(user: User): Promise<User> {
     
   }
 
-  const res = await client.query(query);
+  const res = await pool.query(query);
   return res.rows[0];
 
 }
@@ -130,7 +129,7 @@ export async function getClasses(): Promise<Classroom[]> {
     `,
     values: [],
   };
-  const res = await client.query(query);
+  const res = await pool.query(query);
   return res.rows;
 
 }
@@ -144,7 +143,7 @@ export async function getClassFromId(id: number): Promise<Classroom> {
     `,
     values: [id],
   };
-  const res = await client.query(query);
+  const res = await pool.query(query);
   return res.rows[0];
 }
 
@@ -175,7 +174,7 @@ export async function createClass(classroom: Classroom): Promise<Classroom> {
     
   }
 
-  const res = await client.query(query);
+  const res = await pool.query(query);
   return res.rows[0];
 
 }
@@ -208,7 +207,7 @@ export async function createEnrollment(user: User, classroom: Classroom): Promis
     values: [user.id, classroom.id]
   }
 
-  await client.query(query);
+  await pool.query(query);
 
 }
 export async function getClassesFromOwnerId(id: number): Promise<Classroom[]> {
@@ -221,7 +220,7 @@ export async function getClassesFromOwnerId(id: number): Promise<Classroom[]> {
     `,
     values: [id],
   };
-  const res = await client.query(query);
+  const res = await pool.query(query);
   return res.rows;
 
 }
@@ -237,7 +236,7 @@ export async function getClassesFromUserId(id: number): Promise<Classroom[]> {
     `,
     values: [id],
   };
-  const res = await client.query(query);
+  const res = await pool.query(query);
   return res.rows;
 
 }
@@ -254,7 +253,7 @@ export async function getUsersfromClassId(id: number): Promise<User[]> {
     `,
     values: [id],
   };
-  const res = await client.query(query);
+  const res = await pool.query(query);
   return res.rows;
 
 }
