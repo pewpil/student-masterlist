@@ -12,51 +12,6 @@ const pool = new Pool({
   database: process.env.DB_NAME,
 });
 
-export async function migrateUp() {
-
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS users (
-      id SERIAL PRIMARY KEY,
-      name VARCHAR(100) NOT NULL,
-      password VARCHAR(255) NOT NULL
-    );
-  `);
-
-  console.log("user table up");
-
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS classes (
-    id SERIAL PRIMARY KEY,
-    owner_id SERIAL,
-    name VARCHAR(100) NOT NULL,
-    password VARCHAR(255)
-    FOREIGN KEY (owner_id) REFERENCES users (id)
-    );
-  `);
-
-  console.log("classes table up");
-
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS enrollments (
-    id SERIAL PRIMARY KEY,
-    user_id SERIAL,
-    class_id SERIAL,
-    FOREIGN KEY (user_id) REFERENCES users (id)
-    FOREIGN KEY (class_id) REFERENCES classes (id)
-    );
-  `);
-
-  console.log("enrollments table up");
-
-}
-
-export async function migrateDown() {
-  await pool.query(`
-    DROP TABLE IF EXISTS users, classes, enrollments;
-  `);
-  console.log("users, classes, enrollments down");
-}
-
 //user functions
 
 export async function getUsers(): Promise<User[]> {
@@ -72,12 +27,13 @@ export async function getUsers(): Promise<User[]> {
   return res.rows;
 
 }
+
 export async function getUserFromId(id: number): Promise<User> {
   const query = {
     name: "get-user-from-id",
     text: `
-    FROM users 
     SELECT *
+    FROM users 
     WHERE id = $1;
     `,
     values: [id],
@@ -91,10 +47,17 @@ export async function createUser(user: User): Promise<User> {
 
   const usernames = users.map(u => u.name);
 
+  if (user.name.length < 5) {
+    throw new Error("username must be at least 5 characters");
+  }
+
   if (usernames.includes(user.name)) {
     throw new Error("username already taken");
   }
 
+  if (!user.password) {
+    throw new Error("password unfilled")
+  }
   if (user.password.length < 8) {
     throw new Error("password must be at least 8 characters");
   }
@@ -124,8 +87,8 @@ export async function getClasses(): Promise<Classroom[]> {
   const query = {
     name: "get-classes",
     text: `
-      FROM classes
       SELECT *;
+      FROM classes
     `,
     values: [],
   };
@@ -137,8 +100,8 @@ export async function getClassFromId(id: number): Promise<Classroom> {
   const query = {
     name: "get-class-from-id",
     text: `
-      FROM classes 
       SELECT *
+      FROM classes 
       WHERE id = $1;
     `,
     values: [id],
@@ -214,8 +177,8 @@ export async function getClassesFromOwnerId(id: number): Promise<Classroom[]> {
   const query = {
     name: "get-classes-from-owner-id",
     text: `
-      FROM classes
       SELECT *
+      FROM classes
       WHERE owner_id = $1;
     `,
     values: [id],
@@ -228,8 +191,8 @@ export async function getClassesFromUserId(id: number): Promise<Classroom[]> {
   const query = {
     name: "get-classes-from-user-id",
     text: `
-      FROM enrollments
       SELECT classes.id, classes.name, classes.password
+      FROM enrollments
       INNER JOIN users ON enrollments.user_id = users.id
       INNER JOIN classes ON enrollments.class_id = classes.id
       WHERE users.id = $1;
@@ -245,8 +208,8 @@ export async function getUsersfromClassId(id: number): Promise<User[]> {
   const query = {
     name: "get-users-from-class-id",
     text: `
-      FROM enrollments
       SELECT users.id, users.name, users.password
+      FROM enrollments
       INNER JOIN users ON enrollments.user_id = users.id
       INNER JOIN classes ON enrollments.class_id = classes.id
       WHERE classes.id = $1;

@@ -7,7 +7,7 @@ import { register } from "~/lib/auth";
 import { User } from "~/lib/types";
 
 export default function Page() {
-  const signUpAction = action(async (data: FormData) => {
+  const signup = action(async (data: FormData) => {
     const name = data.get("username")?.toString() || "";
     const password = data.get("password")?.toString() || "";
     const user: User = {name, password};
@@ -16,13 +16,15 @@ export default function Page() {
       const u = await register(user);
       console.log("user registered:", u);
 
-    } catch (error){
-      console.log(error);
+    } catch (error) {
+
+      console.log((error as Error).message);
     }
 
-  }, "sign-up-action");
+  }, "signup");
+
   return (
-    <form action={signUpAction} method="post" id={style.signup}>
+    <form action={signup} method="post" id={style.signup}>
       <div id={style.title}>
         <CircleUser id={style.icon} />
         <h1>Sign Up</h1>
