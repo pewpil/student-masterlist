@@ -1,17 +1,20 @@
 import style from "$/routes/classes/(classes).module.css";
-import { A } from "@solidjs/router";
+import { A, createAsync } from "@solidjs/router";
 import { For } from "solid-js";
 import Button from "~/components/Button";
 import Class from "~/components/classes/Class";
 import getClasses from "%/classes/(classes)/getClasses";
 
 export default function Page() {
+  const classes = createAsync(() => getClasses());
   return (
     <div id={style.classes}>
       <h1>Classes</h1>
       <div>
-        <For each={[getClasses()]}>
-          {(classes) => classes.map((className) => <Class>{className}</Class>)}
+        <For each={classes()}>
+          {(item, index) => (
+          <h1>{item?.name}</h1>
+          )}
         </For>
       </div>
       <div>
